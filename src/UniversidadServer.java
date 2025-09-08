@@ -39,9 +39,7 @@ public class UniversidadServer extends UnicastRemoteObject implements IUniversid
             String url = "rmi://" + SEGIP_HOST + ":" + SEGIP_PORT + "/SegipService";
             ISegipService segip = (ISegipService) Naming.lookup(url);
             Respuesta r = segip.verificar(ci, nombres, ap1, ap2);
-            if (!r.isEstado()) {
-                appendErr(errores, "Los Datos del CI no son correctos");
-            }
+            if (!r.isEstado()) appendErr(errores, "Los Datos del CI no son correctos");
         } catch (Exception e) {
             appendErr(errores, "SEGIP no disponible");
         }
@@ -56,15 +54,12 @@ public class UniversidadServer extends UnicastRemoteObject implements IUniversid
             w.write(req);
             w.flush();
             String resp = r.readLine();
-            if (resp == null) {
-                appendErr(errores, "SEDUCA sin respuesta");
-            } else {
+            if (resp == null) appendErr(errores, "SEDUCA sin respuesta");
+            else {
                 String[] parts = resp.split(":", 2);
                 String estado = parts.length > 0 ? parts[0] : "no";
                 String msg = parts.length > 1 ? parts[1].trim() : "";
-                if (!"si".equalsIgnoreCase(estado)) {
-                    appendErr(errores, msg.isEmpty() ? "no se encontro el titulo de bachiller" : msg);
-                }
+                if (!"si".equalsIgnoreCase(estado)) appendErr(errores, msg.isEmpty() ? "no se encontro el titulo de bachiller" : msg);
             }
         } catch (Exception e) {
             appendErr(errores, "SEDUCA no disponible");
@@ -84,9 +79,7 @@ public class UniversidadServer extends UnicastRemoteObject implements IUniversid
             String[] parts = ans.split(":", 2);
             String estado = parts.length > 0 ? parts[0] : "no";
             String msg = parts.length > 1 ? parts[1].trim() : "";
-            if (!"si".equalsIgnoreCase(estado)) {
-                appendErr(errores, msg.isEmpty() ? "error fecha nacimiento no correcta" : msg);
-            }
+            if (!"si".equalsIgnoreCase(estado)) appendErr(errores, msg.isEmpty() ? "error fecha nacimiento no correcta" : msg);
         } catch (Exception e) {
             appendErr(errores, "SERECI no disponible");
         }

@@ -13,6 +13,15 @@ public class UniversidadClient {
         String ap2 = "Arellano";
         String fecha = "11-02-1996";
         String carrera = "Ing. en Ciencias de la Computacion";
+        String rude = RudeUtil.rude(nombres, ap1, ap2, fecha);
+
+        System.out.println("CI: " + ci);
+        System.out.println("Nombres: " + nombres);
+        System.out.println("1erApellido: " + ap1);
+        System.out.println("2doApellido: " + ap2);
+        System.out.println("fecha_nacimiento: " + fecha);
+        System.out.println("Carrera: " + carrera);
+        System.out.println("RUDE: " + rude);
 
         Diploma d = uni.emitirDiploma(ci, nombres, ap1, ap2, fecha, carrera);
 
